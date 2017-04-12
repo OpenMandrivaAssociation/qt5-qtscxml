@@ -1,0 +1,85 @@
+%define major 5
+%define libname %mklibname qtscxml %{major}
+%define devname %mklibname qtscxml -d
+%define beta beta
+
+Name:	qt5-qtscxml
+Version: 5.9.0
+Release: 0.%{beta}.1
+%if "%{beta}" != "%{nil}"
+Source0: http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/qtscxml-opensource-src-%{version}-%{beta}.tar.xz
+%else
+Source0: http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/qtscxml-opensource-src-%{version}.tar.xz
+%endif
+Summary: Qt scxml library
+URL: https://github.com/qtproject/qtscxml
+License: LGPL-2.1-with-Qt-Company-Qt-exception-1.1 or LGPL-3.0-with-Qt-Company-Qt-exception-1.1
+Group: System/Libraries
+BuildRequires: qmake5
+BuildRequires: pkgconfig(Qt5Core)
+BuildRequires: pkgconfig(Qt5Quick)
+BuildRequires: qt5-qtquick-private-devel
+
+%description
+The Qt SCXML module provides functionality to create state machines from
+SCXML files.
+
+This includes both dynamically creating state machines (loading the SCXML
+file and instantiating states and transitions) and generating a C++ file
+that has a class implementing the state machine. It also contains
+functionality to support data models and executable content.
+
+%package -n %{libname}
+Summary: Qt scxml library
+Group: System/Libraries
+
+%description -n %{libname}
+Qt scxml library
+
+%package -n %{devname}
+Summary: Development files for %{name}
+Group: Development/C
+Requires: %{libname} = %{EVRD}
+
+%description -n %{devname}
+Development files (Headers etc.) for %{name}.
+
+%package examples
+Summary: Example code for the %{name} library
+Group: Development/C
+Requires: %{devname} = %{EVRD}
+BuildRequires: pkgconfig(Qt5Widgets)
+
+%description examples
+Example code for the %{name} library
+
+%prep
+%if "%{beta}" != "%{nil}"
+%setup -qn qtscxml-opensource-src-%{version}-%{beta}
+%else
+%setup -qn qtscxml-opensource-src-%{version}
+%endif
+%qmake_qt5 *.pro
+
+%build
+%make
+
+%install
+make install install_docs INSTALL_ROOT="%{buildroot}"
+
+%files -n %{libname}
+%{_libdir}/*.so.%{major}*
+%{_libdir}/qt5/qml/QtScxml
+
+%files -n %{devname}
+%{_includedir}/*
+%{_libdir}/qt5/bin/qscxmlc
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/*
+%{_libdir}/cmake/Qt5Scxml
+%{_libdir}/qt5/mkspecs/modules/*.pri
+%{_libdir}/qt5/mkspecs/features/*.prf
+%{_libdir}/*.prl
+
+%files examples
+%{_libdir}/qt5/examples/scxml
