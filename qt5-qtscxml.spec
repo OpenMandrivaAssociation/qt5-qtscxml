@@ -1,6 +1,6 @@
 %define major 5
-%define libname %mklibname qtscxml %{major}
-%define devname %mklibname qtscxml -d
+%define libname %mklibname qt5scxml %{major}
+%define devname %mklibname qt5scxml -d
 %define beta beta4
 
 Name:	qt5-qtscxml
