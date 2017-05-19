@@ -1,7 +1,7 @@
 %define major 5
 %define libname %mklibname qtscxml %{major}
 %define devname %mklibname qtscxml -d
-%define beta beta
+%define beta beta4
 
 Name:	qt5-qtscxml
 Version: 5.9.0
