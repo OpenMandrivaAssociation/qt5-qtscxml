@@ -1,13 +1,13 @@
 %define major 5
 %define libname %mklibname qt5scxml %{major}
 %define devname %mklibname qt5scxml -d
-%define beta beta4
+%define beta rc1
 
 Name:	qt5-qtscxml
 Version: 5.10.0
 %if "%{beta}" != "%{nil}"
 %define qttarballdir qtscxml-everywhere-src-%{version}-%{beta}
-Source0: http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
+Source0: http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%(echo %{beta} |sed -e "s,1$,,")/submodules/%{qttarballdir}.tar.xz
 Release: 0.%{beta}.1
 %else
 %define qttarballdir qtscxml-opensource-src-%{version}
