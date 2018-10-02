@@ -3,7 +3,7 @@
 %define devname %mklibname qt5scxml -d
 %define beta %{nil}
 
-Name:	qt5-qtscxml
+Name: qt5-qtscxml
 Version: 5.11.2
 %if "%{beta}" != "%{nil}"
 %define qttarballdir qtscxml-everywhere-src-%{version}-%{beta}
@@ -23,7 +23,7 @@ BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: qt5-qtquick-private-devel
 # For the Provides: generator
-BuildRequires:	cmake >= 3.11.0-1
+BuildRequires: cmake >= 3.11.0-1
 
 %description
 The Qt SCXML module provides functionality to create state machines from
@@ -39,7 +39,7 @@ Summary: Qt scxml library
 Group: System/Libraries
 
 %description -n %{libname}
-Qt scxml library
+Qt scxml library.
 
 %package -n %{devname}
 Summary: Development files for %{name}
@@ -56,17 +56,17 @@ Requires: %{devname} = %{EVRD}
 BuildRequires: pkgconfig(Qt5Widgets)
 
 %description examples
-Example code for the %{name} library
+Example code for the %{name} library.
 
 %prep
-%setup -qn %{qttarballdir}
+%autosetup -n %{qttarballdir} -p1
 %qmake_qt5 *.pro
 
 %build
-%make
+%make_build
 
 %install
-make install install_docs INSTALL_ROOT="%{buildroot}"
+%make_install install_docs INSTALL_ROOT="%{buildroot}"
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}*
