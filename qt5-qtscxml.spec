@@ -1,13 +1,13 @@
 %define major 5
 %define libname %mklibname qt5scxml %{major}
 %define devname %mklibname qt5scxml -d
-%define beta %{nil}
+%define beta beta1
 
 Name: qt5-qtscxml
-Version:	5.13.1
+Version:	5.14.0
 %if "%{beta}" != "%{nil}"
 %define qttarballdir qtscxml-everywhere-src-%{version}-%{beta}
-Source0: http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%(echo %{beta} |sed -e "s,1$,,")/submodules/%{qttarballdir}.tar.xz
+Source0: http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
 Release:	1
 %else
 %define qttarballdir qtscxml-everywhere-src-%{version}
@@ -22,6 +22,8 @@ BuildRequires: qmake5
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: qt5-qtquick-private-devel
+BuildRequires: qt5-qtdoc
+BuildRequires: qt5-qttools
 # For the Provides: generator
 BuildRequires: cmake >= 3.11.0-1
 
@@ -68,6 +70,7 @@ rm examples/*.pro
 
 %build
 %make_build
+%make_build docs
 
 %install
 %make_install install_docs INSTALL_ROOT="%{buildroot}"
@@ -85,6 +88,8 @@ rm examples/*.pro
 %{_libdir}/qt5/mkspecs/modules/*.pri
 %{_libdir}/qt5/mkspecs/features/*.prf
 %{_libdir}/*.prl
+%doc %{_docdir}/qt5/qtscxml.qch
+%doc %{_docdir}/qt5/qtscxml
 
 #files examples
 #%{_libdir}/qt5/examples/scxml
