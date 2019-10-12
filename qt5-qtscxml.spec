@@ -24,6 +24,7 @@ BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: qt5-qtquick-private-devel
 BuildRequires: qt5-qtdoc
 BuildRequires: qt5-qttools
+BuildRequires: qdoc5
 # For the Provides: generator
 BuildRequires: cmake >= 3.11.0-1
 
