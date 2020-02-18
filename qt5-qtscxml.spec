@@ -1,10 +1,10 @@
 %define major 5
 %define libname %mklibname qt5scxml %{major}
 %define devname %mklibname qt5scxml -d
-%define beta %{nil}
+%define beta alpha
 
 Name: qt5-qtscxml
-Version:	5.14.1
+Version:	5.15.0
 %if "%{beta}" != "%{nil}"
 %define qttarballdir qtscxml-everywhere-src-%{version}-%{beta}
 Source0: http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
@@ -12,7 +12,7 @@ Release:	0.%{beta}.1
 %else
 %define qttarballdir qtscxml-everywhere-src-%{version}
 Source0: http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/%{qttarballdir}.tar.xz
-Release:	2
+Release:	1
 %endif
 Summary: Qt scxml library
 URL: https://github.com/qtproject/qtscxml
