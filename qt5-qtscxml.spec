@@ -4,16 +4,18 @@
 %define beta %{nil}
 
 Name: qt5-qtscxml
-Version:	5.15.2
+Version:	5.15.3
 %if "%{beta}" != "%{nil}"
 %define qttarballdir qtscxml-everywhere-src-%{version}-%{beta}
 Source0: http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
 Release:	0.%{beta}.1
 %else
-%define qttarballdir qtscxml-everywhere-src-%{version}
-Source0: http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/%{qttarballdir}.tar.xz
+%define qttarballdir qtscxml-everywhere-src-5.15.2
+Source0: http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/5.15.2/submodules/%{qttarballdir}.tar.xz
 Release:	1
 %endif
+# From KDE
+Patch1000:	0001-Bump-version.patch
 Summary: Qt scxml library
 URL: https://github.com/qtproject/qtscxml
 License: LGPL-2.1-with-Qt-Company-Qt-exception-1.1 or LGPL-3.0-with-Qt-Company-Qt-exception-1.1
@@ -63,6 +65,7 @@ Example code for the %{name} library.
 
 %prep
 %autosetup -n %{qttarballdir} -p1
+%{_libdir}/qt5/bin/syncqt.pl -version %{version}
 
 # https://bugreports.qt.io/browse/QTBUG-76443
 rm examples/*.pro
