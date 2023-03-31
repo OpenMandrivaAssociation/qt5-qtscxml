@@ -12,7 +12,7 @@ Release:	0.%{beta}.1
 %else
 %define qttarballdir qtscxml-everywhere-opensource-src-%{version}
 Source0: http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/%{qttarballdir}.tar.xz
-Release:	1
+Release:	2
 %endif
 # From KDE
 # [currently no patches]
