@@ -4,7 +4,7 @@
 %define beta %{nil}
 
 Name: qt5-qtscxml
-Version:	5.15.10
+Version:	5.15.11
 %if "%{beta}" != "%{nil}"
 %define qttarballdir qtscxml-everywhere-src-%{version}-%{beta}
 Source0: http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
