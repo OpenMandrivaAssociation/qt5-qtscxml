@@ -1,10 +1,11 @@
 %define major 5
-%define libname %mklibname qt5scxml %{major}
+%define oldlibname %mklibname qt5scxml %{major}
+%define libname %mklibname qt5scxml
 %define devname %mklibname qt5scxml -d
 %define beta %{nil}
 
 Name: qt5-qtscxml
-Version:	5.15.11
+Version:	5.15.12
 %if "%{beta}" != "%{nil}"
 %define qttarballdir qtscxml-everywhere-src-%{version}-%{beta}
 Source0: http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
@@ -42,6 +43,7 @@ functionality to support data models and executable content.
 %package -n %{libname}
 Summary: Qt scxml library
 Group: System/Libraries
+%rename %{oldlibname}
 
 %description -n %{libname}
 Qt scxml library.
